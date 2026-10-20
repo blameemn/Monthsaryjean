@@ -5,14 +5,14 @@ opening screen, each cropped to fit its slot.
 
 | File | What's in it | Where it goes |
 |---|---|---|
-| `hero-1.jpg` | the birthday card, roses & fairy lights | left polaroid, opening screen |
-| `hero-2.jpg` | your mirror selfie | middle (tall) polaroid |
-| `hero-3.jpg` | the forehead kiss | right polaroid |
+| `hero-1.jpg` | first gift from my baby | left polaroid, opening screen |
+| `hero-2.jpg` | date picture | middle (tall) polaroid |
+| `hero-3.jpg` | the cheeks kiss | right polaroid |
 | `01.jpg` | the two of you at the café | Chapter One |
-| `02.jpg` | your mirror selfie | Chapter Two |
+| `02.jpg` | your picture from her selfie | Chapter Two |
 | `03.jpg` | you, from your side of the table | Chapter Three |
-| `04.jpg` | the birthday card | Chapter Four |
-| `05.jpg` | the forehead kiss | Chapter Five |
+| `04.jpg` | the gift card | Chapter Four |
+| `05.jpg` | cheeks kisses | Chapter Five |
 | `06.jpg` | the watches | Chapter Six |
 | `07.jpg` | your bag with the gold chain | Chapter Seven |
 | `08.jpg` | the food and the flowers | Chapter Eight |
