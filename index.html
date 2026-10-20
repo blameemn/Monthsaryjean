@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For You &mdash; A Little Reminder</title>
+<meta name="description" content="A quiet little corner of the internet, made for one person only." />
+<meta name="theme-color" content="#F3E9DC" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#10084;</text></svg>" />
+</head>
+<body>
+
+<!-- ░░ soft ambient background ░░ -->
+<div class="ambient" aria-hidden="true">
+  <span class="orb orb--a"></span>
+  <span class="orb orb--b"></span>
+  <span class="orb orb--c"></span>
+  <span class="grain"></span>
+</div>
+
+<!-- ░░ drifting petals ░░ -->
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<!-- ░░ cursor glow ░░ -->
+<div class="cursor-glow" aria-hidden="true"></div>
+
+<!-- ░░ intro overlay ░░ -->
+<div class="curtain" id="curtain">
+  <div class="curtain__inner">
+    <p class="curtain__eyebrow">a small gift</p>
+    <h1 class="curtain__title" data-split>For <span data-bind="herName">you</span></h1>
+    <p class="curtain__sub">tap gently &mdash; it opens just for you</p>
+    <button class="seal" id="openBtn" aria-label="Open">
+      <span class="seal__inner">
+        <span class="seal__heart">&#10084;</span>
+      </span>
+    </button>
+  </div>
+  <div class="curtain__veil"></div>
+</div>
+
+<!-- ░░ header ░░ -->
+<header class="topbar" id="topbar">
+  <a class="topbar__mark" href="#top">
+    <span class="topbar__dot"></span>
+    <span class="topbar__label" data-bind="herName">you</span>
+  </a>
+  <nav class="topbar__nav">
+    <a href="#story">The Story</a>
+    <a href="#chapters">Chapters</a>
+    <a href="#end">One More Thing</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <canvas class="hero3d" id="hero3d" aria-hidden="true"></canvas>
+    <div class="hero__inner">
+    <p class="eyebrow reveal" data-delay="0">every story worth keeping starts somewhere</p>
+
+    <h1 class="hero__title" data-split data-delay="1">
+      I kept every<br /><em>single</em> little thing
+    </h1>
+
+    <p class="hero__lede reveal" data-delay="2">
+      Scroll slowly. A small, quiet corner of the internet that belongs to
+      <span class="nowrap"><span data-bind="herName">you</span></span> and to us &mdash;
+      a place to keep the caf&eacute;, the card i cut by hand, the watches we matched,
+      and every ordinary day that turned out to be a good one.
+    </p>
+
+    <div class="hero__stats reveal" data-delay="3">
+      <div class="stat">
+        <span class="stat__num" id="daysCount">&mdash;</span>
+        <span class="stat__label">days since the beginning</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num" data-bind="memoryCount">8</span>
+        <span class="stat__label">chapters, and counting</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num" id="sinceDate">&mdash;</span>
+        <span class="stat__label">and counting from here</span>
+      </div>
+    </div>
+
+    <!-- the fanned photo stack lives in 3D; these are the no-WebGL fallback -->
+    <div class="polaroids" id="polaroidBand" data-delay="4">
+      <figure class="polaroid" data-tilt>
+        <div class="polaroid__frame">
+          <img class="ph-img" src="photos/hero-1.jpg" alt="Us, somewhere happy" data-ph="hero-1" />
+          <span class="ph-empty" data-ph-label="hero-1"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/hero-1.jpg</small></span>
+        </div>
+        <figcaption>the one i made by hand</figcaption>
+      </figure>
+
+      <figure class="polaroid polaroid--tall" data-tilt>
+        <div class="polaroid__frame">
+          <img class="ph-img" src="photos/hero-2.jpg" alt="A favourite memory" data-ph="hero-2" />
+          <span class="ph-empty" data-ph-label="hero-2"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/hero-2.jpg</small></span>
+        </div>
+        <figcaption>your mirror selfie, sent first</figcaption>
+      </figure>
+
+      <figure class="polaroid" data-tilt>
+        <div class="polaroid__frame">
+          <img class="ph-img" src="photos/hero-3.jpg" alt="Just because" data-ph="hero-3" />
+          <span class="ph-empty" data-ph-label="hero-3"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/hero-3.jpg</small></span>
+        </div>
+        <figcaption>the one you don&rsquo;t know about</figcaption>
+      </figure>
+    </div>
+
+    <a class="scroll-cue" href="#story">
+      <span class="scroll-cue__line"><i></i></span>
+      <span class="scroll-cue__text">begin</span>
+    </a>
+  </div>
+  </section>
+
+  <!-- ══════════ STORY ══════════ -->
+  <section class="story" id="story">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow reveal" data-delay="0">chapter zero</p>
+      <p class="story__text reveal" data-delay="1" data-split>
+        I never was good at saying the big things out loud. But I have always been good
+        at <em>noticing</em> &mdash; the way you push your glasses up with your ring finger,
+        the exact moment your face changes when you're pretending not to laugh, how your
+        hand finds mine like it was always supposed to be there.
+      </p>
+      <p class="story__text story__text--muted reveal" data-delay="2" data-split>
+        So I built you something instead. Eight chapters. The caf&eacute;, the card,
+        the watches, the photograph you didn't know I took. The ones I think about
+        more than you'd ever guess.
+      </p>
+      <span class="signature reveal" data-delay="3">with love, always</span>
+    </div>
+  </section>
+
+  <!-- ══════════ 3D GALLERY ══════════ -->
+  <section class="gallery" id="gallery">
+    <div class="gallery__sticky">
+      <canvas class="gallery__canvas" id="gallery3d" aria-hidden="true"></canvas>
+      <div class="gallery__hud">
+        <p class="eyebrow">the gallery</p>
+        <h2 class="section-title">Every memory,<br />still turning</h2>
+      </div>
+      <p class="gallery__caption" id="galleryCaption">scroll to wander &middot; tap one to open its chapter</p>
+    </div>
+  </section>
+
+  <!-- ══════════ TIMELINE ══════════ -->
+  <section class="chapters" id="chapters">
+    <div class="wrap">
+      <header class="chapters__head">
+        <p class="eyebrow reveal" data-delay="0">the chapters</p>
+        <h2 class="section-title reveal" data-delay="1" data-split>Things I'll never forget</h2>
+        <span class="rule reveal" data-delay="2"></span>
+      </header>
+
+      <div class="timeline" id="timeline">
+        <div class="spine" aria-hidden="true"><span class="spine__fill" id="spineFill"></span></div>
+
+        <!-- ─────── EDIT BELOW: copy a whole <article class="tl-item tl-item--right"> block to add a chapter ─────── -->
+
+        <article id="ch-1" class="tl-item tl-item--right" data-delay="0">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card reveal">
+            <p class="tl-date">Chapter One</p>
+            <h3 class="tl-title">The caf&eacute; that became our table</h3>
+            <div class="tl-ph" data-ph="01" tabindex="0" role="button" aria-label="Add photo for chapter one">
+              <img class="ph-img" src="photos/01.jpg" alt="Chapter one photo" data-ph="01" />
+              <span class="ph-empty" data-ph-label="01"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/01.jpg</small></span>
+            </div>
+            <p class="tl-body">
+              Somewhere between the first coffee and the third plate, this table stopped being a table and started being ours. You took the photo from the far side. I took mine looking down at the food. Neither of us was really ready for it to end.
+            </p>
+          </div>
+        </article>
+
+        <article id="ch-2" class="tl-item" data-delay="0.05">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card reveal">
+            <p class="tl-date">Chapter Two</p>
+            <h3 class="tl-title">Your mirror selfie, sent first</h3>
+            <div class="tl-ph" data-ph="02" tabindex="0" role="button" aria-label="Add photo for chapter two">
+              <img class="ph-img" src="photos/02.jpg" alt="Chapter two photo" data-ph="02" />
+              <span class="ph-empty" data-ph-label="02"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/02.jpg</small></span>
+            </div>
+            <p class="tl-body">
+              You sent it before I'd even sat down. Cream cardigan, glasses slightly crooked, the whole caf&eacute; behind you. I remember thinking: she looks at the world like she's daring it to be interesting.
+            </p>
+          </div>
+        </article>
+
+        <article id="ch-3" class="tl-item tl-item--right" data-delay="0.1">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card reveal">
+            <p class="tl-date">Chapter Three</p>
+            <h3 class="tl-title">The way you always take the picture</h3>
+            <div class="tl-ph" data-ph="03" tabindex="0" role="button" aria-label="Add photo for chapter three">
+              <img class="ph-img" src="photos/03.jpg" alt="Chapter three photo" data-ph="03" />
+              <span class="ph-empty" data-ph-label="03"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/03.jpg</small></span>
+            </div>
+            <p class="tl-body">
+              From your side of the table, apparently, I'm someone who can't look up for a single frame. Every photo you have of me is the top of my head and a fork in my hand. You have never once complained about it.
+            </p>
+          </div>
+        </article>
+
+        <article id="ch-4" class="tl-item" data-delay="0.15">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card reveal">
+            <p class="tl-date">Chapter Four</p>
+            <h3 class="tl-title">The night I made you something</h3>
+            <div class="tl-ph" data-ph="04" tabindex="0" role="button" aria-label="Add photo for chapter four">
+              <img class="ph-img" src="photos/04.jpg" alt="Chapter four photo" data-ph="04" />
+              <span class="ph-empty" data-ph-label="04"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/04.jpg</small></span>
+            </div>
+            <p class="tl-body">
+              Red roses, a string of tiny lights, and a card I cut and stuck and stayed up far too late on &mdash; because I wanted the birthday to feel like it was <em>given</em>, not just passed. The heart-shaped cutout is still my favourite part.
+            </p>
+          </div>
+        </article>
+
+        <article id="ch-5" class="tl-item tl-item--right" data-delay="0.2">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card reveal">
+            <p class="tl-date">Chapter Five</p>
+            <h3 class="tl-title">The kiss on the forehead</h3>
+            <div class="tl-ph" data-ph="05" tabindex="0" role="button" aria-label="Add photo for chapter five">
+              <img class="ph-img" src="photos/05.jpg" alt="Chapter five photo" data-ph="05" />
+              <span class="ph-empty" data-ph-label="05"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/05.jpg</small></span>
+            </div>
+            <p class="tl-body">
+              I have a photo of this and you have no idea. You had your eyes closed and your hair in my face and you had absolutely no idea I was taking it. Some moments you only get to keep from the wrong side of the mirror.
+            </p>
+          </div>
+        </article>
+
+        <article id="ch-6" class="tl-item" data-delay="0.25">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card reveal">
+            <p class="tl-date">Chapter Six</p>
+            <h3 class="tl-title">The watches we matched</h3>
+            <div class="tl-ph" data-ph="06" tabindex="0" role="button" aria-label="Add photo for chapter six">
+              <img class="ph-img" src="photos/06.jpg" alt="Chapter six photo" data-ph="06" />
+              <span class="ph-empty" data-ph-label="06"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/06.jpg</small></span>
+            </div>
+            <p class="tl-body">
+              Two-tone gold and steel on your wrist, all silver on mine. Yours is louder than mine. Mine is twice the size. Neither of us will ever wear anything else &mdash; and you were the one who picked them out, which matters more than the watches.
+            </p>
+          </div>
+        </article>
+
+        <article id="ch-7" class="tl-item tl-item--right" data-delay="0.3">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card reveal">
+            <p class="tl-date">Chapter Seven</p>
+            <h3 class="tl-title">Your bag with the gold chain</h3>
+            <div class="tl-ph" data-ph="07" tabindex="0" role="button" aria-label="Add photo for chapter seven">
+              <img class="ph-img" src="photos/07.jpg" alt="Chapter seven photo" data-ph="07" />
+              <span class="ph-empty" data-ph-label="07"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/07.jpg</small></span>
+            </div>
+            <p class="tl-body">
+              Black leather, gold chain, and it goes with absolutely everything you own. I've never once carried it, and I'm still prouder of it than if I had.
+            </p>
+          </div>
+        </article>
+
+        <article id="ch-8" class="tl-item" data-delay="0.35">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card reveal">
+            <p class="tl-date">Chapter Eight</p>
+            <h3 class="tl-title">The flowers, and the food, and you</h3>
+            <div class="tl-ph" data-ph="08" tabindex="0" role="button" aria-label="Add photo for chapter eight">
+              <img class="ph-img" src="photos/08.jpg" alt="Chapter eight photo" data-ph="08" />
+              <span class="ph-empty" data-ph-label="08"><b class="ph-glyph">&#10084;</b><span>add a photo</span><br /><small>photos/08.jpg</small></span>
+            </div>
+            <p class="tl-body">
+              You always order the one with the sauce. I always steal the bread. The flowers were never on the table for any reason &mdash; they were just there, like you, quietly making the whole thing better than it had any right to be.
+            </p>
+          </div>
+        </article>
+
+        <!-- ─────── END EDITABLE CHAPTERS ─────── -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINALE ══════════ -->
+  <section class="finale" id="end">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow reveal" data-delay="0">one more thing</p>
+      <h2 class="section-title reveal" data-delay="1" data-split>
+        If I could press rewind,<br />I'd do it all again.
+      </h2>
+
+      <div class="finale__letter reveal" data-delay="2" id="finaleCard">
+        <p>
+          Every version of my life before you was fine. Perfectly fine. And that is exactly
+          what makes you so impossible &mdash; you didn't just improve the story, you changed
+          the whole genre. You made the ordinary parts worth keeping: a table, a plate of
+          food, a mirror selfie at the wrong angle.
+        </p>
+        <p>
+          So here it is: the small museum of us. Eight chapters &mdash; and the next one gets
+          written the moment it happens. Add to it whenever you want. It's yours.
+        </p>
+        <p class="finale__ps">P.S. &mdash; I'll never stop choosing you. Even on the boring days. <em>Especially</em> on those.</p>
+        <span class="signature signature--lg">&mdash; yours</span>
+      </div>
+
+      <div class="finale__actions reveal" data-delay="3">
+        <button class="btn btn--ghost" id="replayBtn">&#8635;&nbsp; Read it again</button>
+        <button class="btn btn--solid" id="musicBtn">&#9835;&nbsp; Play our song</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>made by hand, for one person</span>
+    <span class="foot__dot">&#10084;</span>
+    <span>always</span>
+  </footer>
+</main>
+
+<!-- ░░ MUSIC DOCK ░░ -->
+<div class="dock" id="dock" aria-live="polite">
+  <button class="dock__play" id="playBtn" aria-label="Play our song">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="dock__icon" id="playIcon">&#9654;</span>
+  </button>
+
+  <div class="dock__meta">
+    <span class="dock__title" id="trackTitle">Our Song</span>
+    <span class="dock__artist" id="trackArtist">add a track &rarr;</span>
+    <div class="dock__barrow">
+      <div class="dock__bar" id="seekBar" role="slider" aria-label="Seek" tabindex="0">
+        <span class="dock__progress" id="seekProgress"></span>
+      </div>
+      <span class="dock__time" id="timeLabel">0:00</span>
+    </div>
+  </div>
+
+  <div class="dock__right">
+    <button class="dock__btn" id="volBtn" aria-label="Volume">&#9835;</button>
+    <input class="dock__vol" id="volRange" type="range" min="0" max="100" value="70" aria-label="Volume" />
+    <button class="dock__btn dock__btn--gear" id="trackBtn" aria-label="Choose a track">&#9881;</button>
+  </div>
+
+  <audio id="audio" preload="none"></audio>
+
+  <!-- track picker -->
+  <div class="picker" id="picker" hidden>
+    <div class="picker__head">
+      <span>choose our song</span>
+      <button class="picker__close" id="pickerClose" aria-label="Close">&times;</button>
+    </div>
+    <label class="picker__row">
+      <span>mp3 / m4a link</span>
+      <input type="text" id="urlInput" placeholder="https://... .mp3" />
+    </label>
+    <label class="picker__row">
+      <span>or pick a file</span>
+      <input type="file" id="fileInput" accept="audio/*" />
+    </label>
+    <p class="picker__hint">Tip: drop the file into <code>audio/our-song.mp3</code> and it works for anyone you send this to.</p>
+  </div>
+</div>
+
+<!-- hidden file input used by photo slots -->
+<input type="file" id="phInput" accept="image/*" hidden />
+
+<script src="threed/bundle.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
